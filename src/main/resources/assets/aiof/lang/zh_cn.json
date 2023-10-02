@@ -1,0 +1,12 @@
+{
+  "itemGroup.aiof_tab": "多合一食品",
+  "item.aiof.empty_can": "空罐头",
+  "item.aiof.canned_chicken": "鸡肉罐头",
+  "item.aiof.canned_cod": "鳕鱼罐头",
+  "item.aiof.canned_mutton": "羊肉罐头",
+  "item.aiof.canned_porkchop": "猪肉罐头",
+  "item.aiof.canned_rabbit": "兔肉罐头",
+  "item.aiof.canned_salmon": "鲑鱼罐头",
+  "item.aiof.canned_beef": "牛肉罐头",
+  "gui.aiof.shelves.title": "超市货架"
+}
