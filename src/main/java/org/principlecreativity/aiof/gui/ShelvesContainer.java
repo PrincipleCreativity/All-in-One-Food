@@ -1,6 +1,8 @@
 package org.principlecreativity.aiof.gui;
 
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.inventory.container.FurnaceContainer;
+import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -138,7 +140,7 @@ public class ShelvesContainer extends Container implements Supplier<Map<Integer,
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = (Slot) this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();

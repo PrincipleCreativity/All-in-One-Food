@@ -22,32 +22,37 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.principlecreativity.aiof.gui.ShelvesContainer;
 import org.principlecreativity.aiof.init.TileEntityRegister;
+import org.principlecreativity.aiof.pool.ShelvesPool;
 import org.principlecreativity.aiof.util.TextComponents;
 
 import javax.annotation.Nullable;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.IntStream;
 
-public class ShelvesTileEntity  extends LockableLootTileEntity implements ISidedInventory {
-    private NonNullList<ItemStack> stacks = NonNullList.withSize(18, ItemStack.EMPTY);
+public class ShelvesTileEntity  extends LockableLootTileEntity implements ISidedInventory{
+    public NonNullList<ItemStack> stacks = NonNullList.withSize(18, ItemStack.EMPTY);
 
     public ShelvesTileEntity() {
         super(TileEntityRegister.SHELVES_TILE_ENTITY.get());
+        flushed();
     }
 
     @Override
     public void read(BlockState blockState, CompoundNBT compound) {
         super.read(blockState, compound);
         if (!this.checkLootAndRead(compound)) {
-            this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+            stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         }
-        ItemStackHelper.loadAllItems(compound, this.stacks);
+        ItemStackHelper.loadAllItems(compound, stacks);
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
         if (!this.checkLootAndWrite(compound)) {
-            ItemStackHelper.saveAllItems(compound, this.stacks);
+            ItemStackHelper.saveAllItems(compound, stacks);
         }
         return compound;
     }
@@ -74,7 +79,7 @@ public class ShelvesTileEntity  extends LockableLootTileEntity implements ISided
 
     @Override
     public boolean isEmpty() {
-        for (ItemStack itemstack : this.stacks)
+        for (ItemStack itemstack : stacks)
             if (!itemstack.isEmpty())
                 return false;
         return true;
@@ -102,7 +107,7 @@ public class ShelvesTileEntity  extends LockableLootTileEntity implements ISided
 
     @Override
     protected NonNullList<ItemStack> getItems() {
-        return this.stacks;
+        return stacks;
     }
 
     @Override
@@ -145,4 +150,19 @@ public class ShelvesTileEntity  extends LockableLootTileEntity implements ISided
         for (LazyOptional<? extends IItemHandler> handler : handlers)
             handler.invalidate();
     }
+
+    public void flushed(){
+        Random r = new Random();
+        int index =r.nextInt(18);
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                stacks.set(index, new ItemStack(ShelvesPool.extract()));
+                stacks.set(index, new ItemStack(ShelvesPool.extract()));
+                stacks.set(index, new ItemStack(ShelvesPool.extract()));
+            }
+        }, 600000, 600000);
+    }
+
 }

@@ -26,6 +26,7 @@ import org.principlecreativity.aiof.init.BlockRegister;
 import org.principlecreativity.aiof.init.ContainerRegister;
 import org.principlecreativity.aiof.init.ItemRegister;
 import org.principlecreativity.aiof.init.TileEntityRegister;
+import org.principlecreativity.aiof.tileentity.ShelvesTileEntity;
 
 import java.util.stream.Collectors;
 
@@ -69,7 +70,7 @@ public class Main {
     private void processIMC(final InterModProcessEvent event)
     {
     }
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         LOGGER.info("HELLO from server starting");
