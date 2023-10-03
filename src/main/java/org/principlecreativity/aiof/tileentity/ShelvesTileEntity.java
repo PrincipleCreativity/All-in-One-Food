@@ -152,17 +152,15 @@ public class ShelvesTileEntity  extends LockableLootTileEntity implements ISided
     }
 
     public void flushed(){
-        Random r = new Random();
-        int index =r.nextInt(18);
         Timer t = new Timer();
         t.schedule(new TimerTask() {
             @Override
             public void run() {
-                stacks.set(index, new ItemStack(ShelvesPool.extract()));
-                stacks.set(index, new ItemStack(ShelvesPool.extract()));
+                Random r = new Random();
+                int index =r.nextInt(18);
                 stacks.set(index, new ItemStack(ShelvesPool.extract()));
             }
-        }, 600000, 600000);
+        }, 300000, 300000);
     }
 
 }
